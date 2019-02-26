@@ -3,6 +3,10 @@
 This Directory contains files to install ansible and trigger the ansible playbook to install and configure Beats in different distributions of linux (Redhat,Ubuntu).
 
 ## How to use 
+## Prerequisites
+Linux VMs (Currently supported Redhat,Debian) which needs to be monitored.
+ElasticSearch
+Kibana 
 
 # Step 1
 Download the zip file and unzip the file.
@@ -20,8 +24,8 @@ Sample inventory file is available in beats directory.
  If you are using different username and password for every host you have to define the values individually. 
  
  [hosts]                                                                                                                                 
- 172.31.xx.xx        ansible_user=ubuntu                                                                                                 
- localhost           ansible_user=ec2-user                                                                                               
+ ec2-50-112-xx-xx.us-west-2.compute.amazonaws.com        ansible_user=ubuntu                                                        
+ ec2-50-112-xx-xx.us-west-2.compute.amazonaws.com          ansible_user=ec2-user                                                                                               
 
 If you are using same username and password or key for all hosts you can define those values like below.
 
@@ -48,8 +52,8 @@ Asume VM1 has to be monitored with filebeat.
 #To Configure filebeat,define your Target Machine ip's under filebeat block to enable and configure filebeat. define the related variables like below.
  
 [filebeat]                                                                                                                               
-172.31.xx.xx        ansible_user=ubuntu                                                                                                 
-localhost           ansible_user=ec2-user                                                                                               
+ec2-50-112-xx-xx.us-west-2.compute.amazonaws.com        ansible_user=ubuntu                                                  
+ec2-50-112-xx-xx.us-west-2.compute.amazonaws.com           ansible_user=ec2-user                                                                                               
                                                                                                                               
 [filebeat:vars]                                                                                                                         
 filebeat_apache2_enable=true                                                                                                            
