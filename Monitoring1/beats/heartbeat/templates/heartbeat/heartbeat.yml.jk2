@@ -17,8 +17,8 @@ heartbeat.monitors:
   ipv6: true
   mode: any
   timeout: 5s
-  username: '${ES_USERNAME:elastic}'
-  password: '${ES_PASSWORD:changeme}'
+  username: "{{ elasticsearch_username }}"
+  password: "{{ elasticsearch_password }}"
   check.request:
     method: "GET"
   check.response:

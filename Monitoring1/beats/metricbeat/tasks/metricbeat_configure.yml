@@ -52,7 +52,7 @@
 
 - name: "setup default metricbeatbeat dashboards"
   command: metricbeat setup --dashboards
-  when: metricbeat_dashboard_import
+  when: (filebeat_dashboard_import=="true") and (hostvars.localhost.elasticsearch.status==200) and (hostvars.localhost.kibana.status==200) 
 
 - name: "restart metricbeat"
   service:

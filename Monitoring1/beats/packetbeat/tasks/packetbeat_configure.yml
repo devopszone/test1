@@ -8,7 +8,7 @@
 
 - name: "setup default packetbeat dashboards"
   command: packetbeat setup --dashboards
-  when: packetbeat_dashboard_import
+  when: (filebeat_dashboard_import=="true") and (hostvars.localhost.elasticsearch.status==200) and (hostvars.localhost.kibana.status==200) 
 
 - name: "restart packetbeat"
   service:

@@ -42,7 +42,7 @@
 
 - name: "setup default filebeat dashboards"
   command: filebeat setup --dashboards
-  when: (filebeat_dashboard_import=="true") and (hostvars.localhost.elasticsearch.status!=200) and (hostvars.localhost.kibana.status!=200)
+  when: (filebeat_dashboard_import=="true") and (hostvars.localhost.elasticsearch.status==200) and (hostvars.localhost.kibana.status==200)
 - name: "restart filebeat"
   service:
     name: filebeat
