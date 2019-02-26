@@ -1,0 +1,103 @@
+## Pre-requisites Needed
+#Kibana
+#ElasticSearch 
+
+
+#Define your Target Server FQDN under hosts block to install beats.
+
+[hosts]
+ec2-52-27-253-125.us-west-2.compute.amazonaws.com ansible_user=ec2-user
+#ec2-50-112-xx-xx.us-west-2.compute.amazonaws.com ansible_user=ubuntu                                     
+
+[local]
+localhost
+
+#Define your Target Server FQDN under filebeat block to enable and configure filebeat. define the related variables under [filebeat:vars] block. 
+
+[filebeat]
+#ec2-52-27-253-125.us-west-2.compute.amazonaws.com
+#ec2-50-112-xx-xx.us-west-2.compute.amazonaws.com
+
+#Define your Target Server FQDN under Metricbeat block to enable and configure Metricbeat. define the related variables under [metricbeat:vars] block.  
+
+[metricbeat]
+#ec2-50-112-xx-xx.us-west-2.compute.amazonaws.com
+
+#Define your Target Server FQDN under Heartbeat block to enable and configure Heartbeat. define the related variables under [heartbeat:vars] block. 
+
+[heartbeat]
+#ec2-50-112-xx-xx.us-west-2.compute.amazonaws.com
+
+#Define your Target Server FQDN under Packetbeat block to enable and configure Packetbeat. define the related variables under [packetbeat:vars] block. 
+
+[packetbeat]
+#ec2-50-112-xx-xx.us-west-2.compute.amazonaws.com
+
+#Update below default values with your filebeat values.
+[filebeat:vars]
+filebeat_apache2_enable=true
+filebeat_apache2_access_logpath=/var/log/apache2/access.log*
+filebeat_apache2_error_logpath=/var/log/apache2/error.log*
+filebeat_system_enable=true
+filebeat_system_syslogpath=/var/log/host/system.log*
+filebeat_mysql_enable=true
+filebeat_mysql_error_logpath=/var/log/mysql/error.log*
+filebeat_mysql_slowlog_logpath=/var/log/mysql/mysql-slow.log*
+filebeat_nginx_enable=true
+filebeat_nginx_access_logpath=/var/log/nginx/access.log*
+filebeat_nginx_error_logpath=/var/log/nginx/error.log*
+filebeat_dashboard_import=true
+
+
+#Update below default values with your metricbeat values.
+[metricbeat:vars]
+metricbeat_apache_enable=true
+metricbeat_apache_hostURL=http://apache2:8080
+metricbeat_nginx_enable=true
+metricbeat_nginx_hostURL=http://nginx
+metricbeat_docker_enable=true
+metricbeat_docker_host=unix:///var/run/docker.sock
+metricbeat_system_enable=true
+metricbeat_mysql_enable=true
+metricbeat_dashboard_import=false
+
+
+#Update below default values with your Heartbeat values.
+[heartbeat:vars]
+heartbeat=true
+heartbeat_dashboard_import=false
+
+
+
+#Update below default values with your packetbeat values.
+[packetbeat:vars]
+packetbeat=true
+packetbeat_dashboard_import=false
+
+
+
+[hosts:vars]
+#update the path to the key file.
+ansible_ssh_private_key_file=/home/ec2-user/monitoring.pem
+ansible_connection=ssh
+ansible_user=ec2-user
+ansible_become=yes
+#update the Elasticsearch URL to store the data.
+elasticsearch_url=http://172.31.16.98:9200
+elasticsearch_username=elastic 
+elasticsearch_password=changeme
+
+#update the Kibana URL to visualize the data.
+kibana_url=http://172.31.16.98:5601
+kibana_username=elastic 
+kibana_password=changeme
+
+[local:vars]
+ansible_connection=local
+ansible_user=ec2-user
+ansible_become=yes
+#update the Elasticsearch URL to store the data.
+elasticsearch_url=http://172.31.16.98:9200
+#update the Kibana URL to visualize the data.
+kibana_url=http://172.31.16.98:5601
+

@@ -1,0 +1,5 @@
+[inputs.mongodb]
+  servers = ["mongodb://{{ MongoDBIP }}:27017"]
+  gather_perdb_stats = false
+
+

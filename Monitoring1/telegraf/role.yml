@@ -1,0 +1,34 @@
+---
+- hosts: local
+  tasks:
+    - include_tasks: pre_flightcheck.yml
+- hosts: hosts 
+  roles:
+    - { role: telegraf_role, when: hostvars.localhost.influx.status==200 }
+
+- hosts: tomcat
+  roles:
+    - { role: telegraf_tomcat, when: hostvars.localhost.influx.status==200 }
+
+- hosts: apache
+  roles:
+    - { role: telegraf_apache, when:  hostvars.localhost.influx.status==200}
+
+- hosts: nginx
+  roles:
+    - { role: telegraf_nginx, when:  hostvars.localhost.influx.status==200}
+
+- hosts: mysql
+  roles:
+    - { role: telegraf_mysql, when: hostvars.localhost.influx.status==200}
+
+- hosts: mongodb
+  roles:
+    - { role: telegraf_mongodb, when: hostvars.localhost.influx.status==200}
+
+- hosts: redis
+  roles:
+    - { role: telegraf_redis, when: hostvars.localhost.influx.status==200}
+- hosts: local
+  roles:
+    - { role: grafana, when: (hostvars.localhost.grafanadashboards_enable=="true") and (hostvars.localhost.grafana.status==200) }

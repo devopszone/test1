@@ -1,0 +1,60 @@
+---
+ 
+- name: "replace metricbeat.yml"
+  template: 
+    src: metricbeat/metricbeat.yml.jk2
+    dest: /etc/metricbeat/metricbeat.yml
+
+- name: "enable metricbeat_docker module"
+  shell: metricbeat modules enable docker 
+  when: metricbeat_docker_enable
+- name: "replace metric_docker.yml"
+  template: 
+    src: metricbeat/metricbeat_docker.yml.jk2
+    dest: /etc/metricbeat/modules.d/docker.yml
+  when: metricbeat_docker_enable  
+
+- name: "enable metricbeat_apache module"
+  shell: metricbeat modules enable apache
+  when: metricbeat_apache_enable
+- name: "replace metric_apache.yml"
+  template:
+    src: metricbeat/metricbeat_apache.yml.jk2
+    dest:  /etc/metricbeat/modules.d/apache.yml
+  when: metricbeat_apache_enable
+
+- name: "enable metricbeat_system module"
+  shell: metricbeat modules enable system
+  when: metricbeat_system_enable
+- name: "replace metricbeat_system.yml"
+  template:
+    src: metricbeat/metricbeat_system.yml.jk2
+    dest: /etc/metricbeat/modules.d/system.yml
+  when: metricbeat_system_enable
+
+- name: "enable metricbeat_nginx module"
+  shell: metricbeat modules enable nginx
+  when: metricbeat_nginx_enable
+- name: "replace metricbeat_nginx.yml"
+  template:
+    src: metricbeat/metricbeat_nginx.yml.jk2
+    dest:  /etc/metricbeat/modules.d/nginx.yml
+  when: metricbeat_nginx_enable
+
+- name: "enable metricbeat_mysql module"
+  shell: metricbeat modules enable mysql
+  when: metricbeat_mysql_enable
+- name: "replace metricbeat_mysql.yml"
+  template:
+    src: metricbeat/metricbeat_mysql.yml.jk2
+    dest:  /etc/metricbeat/modules.d/mysql.yml
+  when: metricbeat_mysql_enable
+
+- name: "setup default metricbeatbeat dashboards"
+  command: metricbeat setup --dashboards
+  when: metricbeat_dashboard_import
+
+- name: "restart metricbeat"
+  service:
+    name: metricbeat
+    state: restarted

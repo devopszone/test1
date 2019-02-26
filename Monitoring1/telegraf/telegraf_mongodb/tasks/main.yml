@@ -1,0 +1,12 @@
+--- 
+- name: "Mongodb plugin"
+  template: 
+    dest: /home/temp.conf
+    src: telegraf.conf_mongodbconfig.jk2
+  when: "MongoDBIP is defined"
+- name: "add Mongodb plugin to telegraf.conf"
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"
+  args: 
+    chdir: /home/
+  when: "MongoDBIP is defined"
+

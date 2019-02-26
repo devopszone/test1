@@ -1,0 +1,3 @@
+---
+# tasks file for metricbeat
+- include: metricbeat_configure.yml

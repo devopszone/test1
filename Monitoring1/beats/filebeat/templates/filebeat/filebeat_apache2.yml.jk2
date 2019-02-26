@@ -1,0 +1,5 @@
+- module: apache2
+  access:
+    var.paths: ["{{filebeat_apache2_access_logpath}}"]
+  error:
+    var.paths: ["{{filebeat_apache2_error_logpath}}"]

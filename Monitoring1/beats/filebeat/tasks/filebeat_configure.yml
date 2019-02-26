@@ -1,0 +1,50 @@
+---
+
+- name: "replace filebeat.yml"
+  template: 
+    src: filebeat/filebeat.yml.jk2
+    dest: /etc/filebeat/filebeat.yml
+- name: "enable filebeat_system module"
+  shell: filebeat modules enable system 
+  when: filebeat_system_enable
+- name: "replace filebeat_system.yml"
+  template: 
+    src: filebeat/filebeat_system.yml.jk2
+    dest: /etc/filebeat/modules.d/system.yml
+  when: filebeat_system_enable  
+
+- name: "enable filebeat_nginx module"
+  command: filebeat modules enable nginx
+  when: filebeat_nginx_enable
+- name: "replace filebeat_nginx.yml"
+  template:
+    src: filebeat/filebeat_nginx.yml.jk2
+    dest: /etc/filebeat/modules.d/nginx.yml
+  when: filebeat_nginx_enable
+
+- name: "enable filebeat_apache2 module"
+  command: filebeat modules enable apache2
+  when: filebeat_apache2_enable
+- name: "replace filebeat_apache2.yml"
+  template:
+    src: filebeat/filebeat_apache2.yml.jk2
+    dest: /etc/filebeat/modules.d/apache2.yml
+  when: filebeat_apache2_enable
+
+- name: "enable filebeat_mysql module"
+  command: filebeat modules enable mysql
+  when: filebeat_mysql_enable
+- name: "replace filebeat_mysql.yml"
+  template:
+    src: filebeat/filebeat_mysql.yml.jk2
+    dest: /etc/filebeat/modules.d/mysql.yml
+  when: filebeat_mysql_enable
+
+- name: "setup default filebeat dashboards"
+  command: filebeat setup --dashboards
+  when: (filebeat_dashboard_import=="true") and (hostvars.localhost.elasticsearch.status!=200) and (hostvars.localhost.kibana.status!=200)
+- name: "restart filebeat"
+  service:
+    name: filebeat
+    state: restarted
+

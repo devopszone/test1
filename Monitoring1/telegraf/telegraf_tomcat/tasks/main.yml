@@ -1,0 +1,12 @@
+--- 
+- name: "Tomcat Plugin"
+  template: 
+    dest: /home/temp.conf
+    src: telegraf.conf_tomcatconfig.jk2
+  when: "TomcatManagerIP is defined"
+- name: "add Tomcat plugin to telegraf.conf"
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"      
+  args: 
+    chdir: /home/
+  when: "TomcatManagerIP is defined"
+

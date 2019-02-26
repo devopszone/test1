@@ -1,0 +1,18 @@
+--- 
+- name: "remove the existing telegraf.config file"
+  file: 
+    path: /etc/telegraf/telegraf.conf
+    state: absent
+  
+- name: "telegraf config"
+  template: 
+    dest: /home/temp.conf
+    src: telegraf.conf.jk2
+- name: "base telegraf.conf" 
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"
+  args: 
+    chdir: /home/
+- name: "change file permission"
+  file:
+    mode: 420
+    path: /etc/telegraf/telegraf.conf

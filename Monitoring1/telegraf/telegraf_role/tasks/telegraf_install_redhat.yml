@@ -1,0 +1,22 @@
+---
+- name: Install any necessary dependencies [RedHat/CentOS]
+  yum:
+    name: ['curl','wget','vim','nano']
+    state: present
+
+- name: Add InfluxData repository file [RHEL/CentOS]
+  template:
+    src: influxdata.repo.jk2
+    dest: /etc/yum.repos.d/influxdata.repo
+    force: yes
+    backup: yes 
+- name: install telegraf
+  yum: 
+    name: telegraf
+    state: present     
+- name: start telegraf service
+  service: 
+    name: telegraf
+    state: restarted
+  
+

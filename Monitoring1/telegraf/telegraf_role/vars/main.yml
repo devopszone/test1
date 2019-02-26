@@ -1,0 +1,21 @@
+---
+#influxdb_url: "http://influxdb:8086"
+#influxdb_DBName: "javastack"
+
+
+#ApacheIP: localhost
+#Apache_Port: 80
+
+#MongoDBIP: localhost
+#MongoDB_Port: 27017
+
+#RedisIP: localhost
+#Redis_Port: 6379
+
+#TomcatManagerIP: localhost
+#Tomcat_Port: 8080
+#Tomcat_User: admin
+#Tomcat_Pwd: admin
+
+#JolokiaServerIP: 
+

@@ -1,0 +1,107 @@
+##prerequisite
+#InfluxdbURL  ==>  telegraf to send the data.
+#GrafanaURL ==> to import Grafana dashbords.
+
+#Define your Target Machine ip/hostname/FQDN under hosts block to install telegraf.
+[hosts]
+#ec2-34-221-98-46.us-west-2.compute.amazonaws.com ansible_user=ubuntu
+ec2-52-27-253-125.us-west-2.compute.amazonaws.com   ansible_user=ec2-user
+
+
+#Pre-Flight Checking is done in localhost
+[local]
+localhost ansible_user=ec2-user
+
+#Define your Target Server FQDN under tomcat block to configure tomcat telegraf plugin,and define the variables under [tomcat:vars] block. 
+
+[tomcat]
+#ec2-50-112-218-49.us-west-2.compute.amazonaws.com  ansible_user=ec2-user
+
+#Define your Target Server FQDN under Apache block to configure apache telegraf plugin,and define the variables under [apache:vars] block.
+
+[apache]
+#ec2-50-112-218-49.us-west-2.compute.amazonaws.com
+
+
+#Define your Target Server FQDN under MYSQL block to configure MYSQL telegraf plugin,and define the variables under [mysql:vars] block.
+
+[mysql]
+#ec2-50-112-218-49.us-west-2.compute.amazonaws.com
+
+#Define your Target Server FQDN under Redis block to configure Redis telegraf plugin. define the variables under [redis:vars] block.
+
+[redis]
+#ec2-50-112-218-49.us-west-2.compute.amazonaws.com
+
+#Define your Target Server FQDN under MongoDB block to configure MongoDB telegraf plugin. define the variables under [mongodb:vars] block.
+
+[mongodb]
+#ec2-50-112-218-49.us-west-2.compute.amazonaws.com
+
+#Define your Target Server FQDN under Nginx block to configure Nginx telegraf plugin. define the variables under [mongodb:vars] block.
+
+[nginx]
+#ec2-50-112-218-49.us-west-2.compute.amazonaws.com
+
+#Update below default values with your Tomcat Server Details.
+[tomcat:vars]
+TomcatManagerIP=ec2-50-112-218-49.us-west-2.compute.amazonaws.com
+Tomcat_Port=8080
+Tomcat_User=admin
+Tomcat_Pwd=admin
+
+#Update below default values with your Apache Server Details.
+[apache:vars]
+ApacheIP=ec2-50-112-218-49.us-west-2.compute.amazonaws.com
+
+#Update below default values with your MYSQL Server Details.
+[mysql:vars]
+MysqlIP=ec2-50-112-218-49.us-west-2.compute.amazonaws.com
+MysqlPort=3306
+
+#Update below default values with your Redis Server Details.
+[redis:vars]
+RedisIP=ec2-50-112-218-49.us-west-2.compute.amazonaws.com
+Redis_Port=6379
+
+#Update below default values with your Mongodb Server Details.
+[mongodb:vars]
+MongoDBIP=ec2-50-112-218-49.us-west-2.compute.amazonaws.com
+MongoDB_Port=27017
+
+#Update below default values with your Nginx Server Details.
+[nginx:vars]
+NginxIP=ec2-50-112-218-49.us-west-2.compute.amazonaws.com
+
+#Update below variables with Target Server Details..
+[hosts:vars]
+
+#update the path to the key file.
+ansible_ssh_private_key_file=/home/ec2-user/monitoring.pem
+ansible_connection=ssh
+ansible_become=yes
+#update the influxdb URL,telegraf will send the data to influxDB
+influxdb_IP="172.31.16.98"
+influxdb_Port=8086
+#update the influxdb DBname,to store the telegraf data.
+influxdb_DBName="javastack"                                                                                     
+influxdb_username="root"                                                                                                              
+influxdb_password="root"      
+
+[local:vars]
+#update below varibales for grafana 
+    
+grafanadashboards_enable="true"
+grafana_ip=172.31.16.98
+grafana_username="admin"
+grafana_password="admin"
+grafana_dashboards_path=$PWD                                                           
+influxdb_IP="172.31.16.98"
+influxdb_Port=8086
+influxdb_DBName="javastack"
+influxdb_username="root"
+influxdb_password="root"
+ansible_user=ec2-user
+ansible_connection=local
+ansible_become=yes
+Ansible_ssh_private_key_file=/home/ec2-user/monitoring.pem

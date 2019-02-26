@@ -1,0 +1,19 @@
+# Gather metrics from the Tomcat server status page.
+[[inputs.tomcat]]
+  ## URL of the Tomcat server status
+  url = "http://{{ TomcatManagerIP }}:{{ Tomcat_Port }}/manager/status/all?XML=true"
+
+  ## HTTP Basic Auth Credentials
+  username = "{{ Tomcat_User }}"
+  password = "{{ Tomcat_Pwd }}"
+
+  ## Request timeout
+  # timeout = "5s"
+
+  ## Optional SSL Config
+  # ssl_ca = "/etc/telegraf/ca.pem"
+  # ssl_cert = "/etc/telegraf/cert.pem"
+  # ssl_key = "/etc/telegraf/key.pem"
+  ## Use SSL but skip chain & host verification
+  # insecure_skip_verify = false
+  

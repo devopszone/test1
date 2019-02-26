@@ -1,0 +1,18 @@
+{
+"name": "influx",
+"type": "influxdb",
+"access": "proxy",
+"orgId": 1,
+"url": "http://172.31.16.98:8086",
+"user": "root",
+"password": "root",
+"database": "javastack",
+"basicAuth": true,
+"basicAuthUser": "root",
+"basicAuthPassword": "root",
+"withCredentials": true,
+"is_default": true,
+"version": 1,
+"editable": true
+}
+

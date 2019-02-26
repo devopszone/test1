@@ -1,0 +1,21 @@
+---
+# tasks file for beats_role
+- name: Debian - Ensure apt-transport-https is installed
+  apt: 
+    name: apt-transport-https 
+    state: present 
+- name: Debian - Add Beats repository key
+  apt_key: 
+    url: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+    state: present
+
+- name: Debian - add beats repository
+  apt_repository: 
+    repo: "deb https://artifacts.elastic.co/packages/6.x/apt stable main" 
+    state: present
+
+- name: install beats
+  apt:
+    name: ['filebeat','packetbeat','auditbeat','metricbeat','heartbeat-elastic']
+    state: present
+    update_cache: yes

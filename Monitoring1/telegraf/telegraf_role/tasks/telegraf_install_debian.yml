@@ -1,0 +1,27 @@
+---
+# tasks file for telegraf_role
+- name: Debian - Ensure apt-transport-https is installed
+  apt: 
+    name: apt-transport-https 
+    state: present 
+- name: Debian - Add telegraf repository key
+  apt_key: 
+    url: "https://repos.influxdata.com/influxdb.key"
+    state: present
+#- name: Debian
+#  command: source /etc/os-release
+
+- name: Debian - add influx repository
+  apt_repository: 
+    repo: "deb https://repos.influxdata.com/debian wheezy stable" 
+    state: present
+
+- name: install telegraf
+  apt:
+    name: telegraf
+    state: present
+    update_cache: yes
+- name: telegraf service start
+  service:
+    name: telegraf
+    state: started

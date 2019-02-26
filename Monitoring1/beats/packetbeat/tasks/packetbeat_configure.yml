@@ -1,0 +1,17 @@
+---
+
+- name: "replace packetbeat.yml"
+  template: 
+    src: packetbeat/packetbeat.yml.jk2
+    dest: /etc/packetbeat/packetbeat.yml
+  when: packetbeat
+
+- name: "setup default packetbeat dashboards"
+  command: packetbeat setup --dashboards
+  when: packetbeat_dashboard_import
+
+- name: "restart packetbeat"
+  service:
+    name: packetbeat
+    state: restarted
+  when: packetbeat

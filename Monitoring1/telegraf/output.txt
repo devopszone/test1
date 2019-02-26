@@ -1,0 +1,108 @@
+
+PLAY [local] *******************************************************************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************************
+ok: [localhost]
+
+TASK [include_tasks] ***********************************************************************************************************************
+included: /home/ec2-user/Monitoring1/telegraf/pre_flightcheck.yml for localhost
+
+TASK [check the status of influxdb URL] ****************************************************************************************************
+fatal: [localhost]: FAILED! => {"changed": false, "connection": "close", "content": "404 page not found\n", "content_length": "19", "content_type": "text/plain; charset=utf-8", "date": "Sun, 24 Feb 2019 17:50:19 GMT", "msg": "Status code was 404 and not [200]: HTTP Error 404: Not Found", "redirected": false, "status": 404, "url": "http://172.31.16.98:8086", "x_content_type_options": "nosniff", "x_influxdb_version": "1.0.0"}
+...ignoring
+
+TASK [check the status of influxdb URL] ****************************************************************************************************
+ok: [localhost]
+
+TASK [echo error message for influxdb] *****************************************************************************************************
+skipping: [localhost]
+
+TASK [echo error message for grafana] ******************************************************************************************************
+skipping: [localhost]
+
+PLAY [hosts] *******************************************************************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************************
+ok: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : Install any necessary dependencies [RedHat/CentOS]] ******************************************************************
+ok: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : Add InfluxData repository file [RHEL/CentOS]] ************************************************************************
+ok: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : install telegraf] ****************************************************************************************************
+ok: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : start telegraf service] **********************************************************************************************
+changed: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : Debian - Ensure apt-transport-https is installed] ********************************************************************
+skipping: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : Debian - Add telegraf repository key] ********************************************************************************
+skipping: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : Debian - add influx repository] **************************************************************************************
+skipping: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : install telegraf] ****************************************************************************************************
+skipping: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : telegraf service start] **********************************************************************************************
+skipping: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : remove the existing telegraf.config file] ****************************************************************************
+changed: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : telegraf config] *****************************************************************************************************
+ok: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : base telegraf.conf] **************************************************************************************************
+changed: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+TASK [telegraf_role : change file permission] **********************************************************************************************
+ok: [ec2-54-189-165-25.us-west-2.compute.amazonaws.com]
+
+PLAY [local] *******************************************************************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************************
+ok: [localhost]
+
+TASK [grafana : create datasource json file for influxdb] **********************************************************************************
+skipping: [localhost]
+
+TASK [grafana : create datasource json file for stagemonitor] ******************************************************************************
+skipping: [localhost]
+
+TASK [grafana : Create influxdb datasource] ************************************************************************************************
+skipping: [localhost]
+
+TASK [grafana : Create datasource for stagemonitor] ****************************************************************************************
+skipping: [localhost]
+
+TASK [grafana : import grafana dashboards] *************************************************************************************************
+skipping: [localhost]
+
+PLAY [tomcat] ******************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [apache] ******************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [nginx] *******************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [mysql] *******************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [mongodb] *****************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY [redis] *******************************************************************************************************************************
+skipping: no hosts matched
+
+PLAY RECAP *********************************************************************************************************************************
+ec2-54-189-165-25.us-west-2.compute.amazonaws.com : ok=9    changed=3    unreachable=0    failed=0   
+localhost                  : ok=5    changed=0    unreachable=0    failed=0   
+

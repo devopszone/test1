@@ -1,0 +1,17 @@
+---
+
+- name: "replace heartbeat.yml"
+  template: 
+    src: heartbeat/heartbeat.yml.jk2
+    dest: /etc/heartbeat/heartbeat.yml
+  when: heartbeat
+
+- name: "setup default heartbeat dashboards"
+  command: heartbeat setup --dashboards
+  when: heartbeat_dashboard_import
+
+- name: "restart heartbeat"
+  service:
+    name: heartbeat-elastic 
+    state: restarted
+  when: heartbeat

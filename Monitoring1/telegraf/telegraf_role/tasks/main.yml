@@ -1,0 +1,9 @@
+---
+# tasks file for telegraf_role
+- include: telegraf_install_redhat.yml
+  when: ansible_os_family == "RedHat"
+
+- include: telegraf_install_debian.yml
+  when: ansible_os_family == "Debian"
+
+- include: telegraf_configure.yml

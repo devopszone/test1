@@ -1,0 +1,12 @@
+--- 
+- name: "Mysql plugin"
+  template:
+    dest: /home/temp.conf
+    src: telegraf.conf_mysql.jk2
+  when: "MysqlIP is defined"
+- name: "add Mysql plugin to telegraf.conf "
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"
+  args:
+    chdir: /home/
+  when: "MysqlIP is defined"
+

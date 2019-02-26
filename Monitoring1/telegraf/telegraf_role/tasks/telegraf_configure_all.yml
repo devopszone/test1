@@ -1,0 +1,89 @@
+--- 
+- name: "remove the existing telegraf.config file"
+  file: 
+    path: /etc/telegraf/telegraf.conf
+    state: absent
+  run_once: true 
+- name: "telegraf config"
+  template: 
+    dest: /home/temp.conf
+    src: telegraf.conf.jk2
+- name: "base telegraf.conf" 
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"
+  args: 
+    chdir: /home/
+- name: "Jolokia plugin"
+  template: 
+    dest: /home/temp.conf
+    src: telegraf.conf_jolokia.jk2
+  when: "JolokiaServerIP is defined"
+- name: "add Jolokia plugin to telegraf.conf"
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"
+  args: 
+    chdir: /home/
+  when: "JolokiaServerIP is defined"
+- name: "Redis plugin"
+  template: 
+    dest: /home/temp.conf
+    src: telegraf.conf_redisconfig.jk2
+  when: "RedisIP is defined"
+- name: "add Redisplugin to telegraf.conf"
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"
+  args: 
+    chdir: /home/
+  when: "RedisIP is defined"
+- name: "Tomcat Plugin"
+  template: 
+    dest: /home/temp.conf
+    src: telegraf.conf_tomcatconfig.jk2
+  when: "TomcatManagerIP is defined"
+- name: "add Tomcat plugin to telegraf.conf"
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"      
+  args: 
+    chdir: /home/
+  when: "TomcatManagerIP is defined"
+- name: "Mongodb plugin"
+  template: 
+    dest: /home/temp.conf
+    src: telegraf.conf_mongodbconfig.jk2
+  when: "MongoDBIP is defined"
+- name: "add Mongodb plugin to telegraf.conf"
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"
+  args: 
+    chdir: /home/
+  when: "MongoDBIP is defined"
+- name: "Apache Plugin"
+  template: 
+    dest: /home/temp.conf
+    src: telegraf.conf_apache.jk2
+  when: "ApacheIP is defined"
+- name: "add Apache plugin to telegraf.conf"
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"
+  args: 
+    chdir: /home/
+  when: "ApacheIP is defined"
+- name: "nginx plugin"
+  template:
+    dest: /home/temp.conf
+    src: telegraf.conf_nginx.jk2
+  when: "NginxIP is defined"
+- name: "add nginx plugin to telegraf.conf "
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"
+  args:
+    chdir: /home/
+  when: "NginxIP is defined"
+- name: "Mysql plugin"
+  template:
+    dest: /home/temp.conf
+    src: telegraf.conf_mysql.jk2
+  when: "MysqlIP is defined"
+- name: "add Mysql plugin to telegraf.conf "
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"
+  args:
+    chdir: /home/
+  when: "MysqlIP is defined"
+- name: "change file permission" 
+  file: 
+    mode: 420
+    path: /etc/telegraf/telegraf.conf
+

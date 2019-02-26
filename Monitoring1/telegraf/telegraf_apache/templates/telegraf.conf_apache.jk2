@@ -1,0 +1,2 @@
+[[inputs.apache]]
+urls = ["http://{{ ApacheIP }}/server-status?auto"]

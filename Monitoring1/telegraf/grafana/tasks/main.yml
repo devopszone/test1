@@ -1,0 +1,42 @@
+---
+# tasks file for grafana
+- name: "create datasource json file for influxdb"
+  template:
+    src: influxdatasource.jk2
+    dest: "$PWD/grafana/files/influxdatasource.json"
+- name: "create datasource json file for stagemonitor"
+  template:
+    src: stagemonitordatasource.jk2
+    dest: "$PWD/grafana/files/stagemonitordatasource.json"
+#- name: "create datasource json file for prometheus"
+#  template:
+#    src: prometheusdatasource.jk2
+#    dest: "{{ grafana_dashboards_path }}prometheusdatasource.json"
+
+- name: Create influxdb datasource
+  uri:
+    url: http://{{grafana_ip}}:3000/api/datasources
+    method: POST
+    user: "{{ grafana_username }}"
+    password: "{{ grafana_password }}"
+    body: "{{ lookup('file','influxdatasource.json') }}"
+    force_basic_auth: yes
+    status_code: [200,409]
+    body_format: json
+  ignore_errors: true
+- name: Create datasource for stagemonitor
+  uri:
+    url: http://{{grafana_ip}}:3000/api/datasources
+    method: POST
+    user: "{{ grafana_username }}"
+    password: "{{ grafana_password }}"
+    body: "{{ lookup('file','stagemonitordatasource.json') }}"
+    force_basic_auth: yes
+    status_code: [200,409]
+    body_format: json
+  ignore_errors: true
+- name: "import grafana dashboards"
+  shell: "sh autoimport_grafana_dashboards.sh {{grafana_username}} {{grafana_password}} {{grafana_ip}}"  
+  args:
+    chdir: "{{ grafana_dashboards_path }}/grafana/files"
+     

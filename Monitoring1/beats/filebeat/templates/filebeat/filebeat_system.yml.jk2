@@ -1,0 +1,3 @@
+- module: system
+  syslog:
+    var.paths: ["{{filebeat_system_syslogpath}}"]

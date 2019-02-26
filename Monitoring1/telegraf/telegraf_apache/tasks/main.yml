@@ -1,0 +1,12 @@
+--- 
+- name: "Apache Plugin"
+  template: 
+    dest: /home/temp.conf
+    src: telegraf.conf_apache.jk2
+  when: "ApacheIP is defined"
+- name: "add Apache plugin to telegraf.conf"
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"
+  args: 
+    chdir: /home/
+  when: "ApacheIP is defined"
+

@@ -1,0 +1,18 @@
+{
+"name": "influx",
+"type": "influxdb",
+"access": "proxy",
+"orgId": 1,
+"url": "http://{{ influxdb_IP }}:{{ influxdb_Port }}",
+"user": "{{influxdb_username}}",
+"password": "{{ influxdb_password }}",
+"database": "{{ influxdb_DBName }}",
+"basicAuth": true,
+"basicAuthUser": "root",
+"basicAuthPassword": "root",
+"withCredentials": true,
+"is_default": true,
+"version": 1,
+"editable": true
+}
+

@@ -1,0 +1,5 @@
+- module: nginx
+  access:
+    var.paths: ["{{filebeat_nginx_access_logpath}}"]
+  error:
+    var.paths: ["{{filebeat_nginx_error_logpath}}"]

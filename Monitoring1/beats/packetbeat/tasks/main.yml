@@ -1,0 +1,3 @@
+---
+# tasks file for packetbeat
+- include: packetbeat_configure.yml

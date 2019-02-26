@@ -1,0 +1,20 @@
+- name: check the status of influxdb URL
+  uri:
+    url: "http://{{ influxdb_IP }}:8083"
+    status: 200
+  register: influx
+  ignore_errors: yes
+- name: check the status of influxdb URL
+  uri:
+    url: "http://{{ grafana_ip }}:3000"
+    status: 200
+  register: grafana
+  ignore_errors: yes
+- name: echo error message for influxdb
+  debug:
+    msg: "http://{{ influxdb_IP }}:8083 not active"
+  when: influx.status != 200
+- name: echo error message for grafana
+  debug:
+    msg: "http://{{ grafana_ip }}:3000 not active"
+  when: grafana.status != 200

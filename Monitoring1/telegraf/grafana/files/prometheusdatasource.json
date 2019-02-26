@@ -1,0 +1,11 @@
+{	
+"name": "ds_prometheus",
+"type": "prometheus",
+"access": "proxy",
+"org_id": 1,
+"url": "http://prometheus-operator-prometheus:9090",
+"is_default": false,
+"version": 1,
+"editable": true
+}
+

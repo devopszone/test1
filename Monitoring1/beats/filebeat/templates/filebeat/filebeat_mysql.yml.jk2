@@ -1,0 +1,5 @@
+- module: mysql
+  error:
+    var.paths: ["{{filebeat_mysql_error_logpath}}"]
+  slowlog:
+    var.paths: ["{{filebeat_mysql_slowlog_logpath}}"]

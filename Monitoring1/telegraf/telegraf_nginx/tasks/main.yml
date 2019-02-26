@@ -1,0 +1,12 @@
+--- 
+- name: "nginx plugin"
+  template:
+    dest: /home/temp.conf
+    src: telegraf.conf_nginx.jk2
+  when: "NginxIP is defined"
+- name: "add nginx plugin to telegraf.conf "
+  shell: "cat temp.conf >> /etc/telegraf/telegraf.conf"
+  args:
+    chdir: /home/
+  when: "NginxIP is defined"
+

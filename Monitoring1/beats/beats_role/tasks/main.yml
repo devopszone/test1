@@ -1,0 +1,8 @@
+---
+# tasks file for telegraf_role
+- include: beats_install_redhat.yml
+  when: ansible_os_family == "RedHat"
+
+- include: beats_install_debian.yml
+  when: ansible_os_family == "Debian"
+

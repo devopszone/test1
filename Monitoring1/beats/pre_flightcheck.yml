@@ -1,0 +1,20 @@
+- name: check the status of ElasticSearch URL
+  uri:
+    url: "{{ elasticsearch_url }}"
+    status: 200
+  register: elasticsearch
+  ignore_errors: yes
+- name: check the status of kibana URL
+  uri:
+    url: "{{ kibana_url }}"
+    status: 200
+  register: kibana
+  ignore_errors: yes
+- name: echo error message for elasticsearch
+  debug:
+    msg: "{{ elasticsearch_url }} not active"
+  when: elasticsearch.status != 200
+- name: echo error message for kibana
+  debug:
+    msg: "{{ kibana_url }} not active"
+  when: kibana.status != 200

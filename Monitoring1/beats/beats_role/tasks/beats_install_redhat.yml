@@ -1,0 +1,10 @@
+---
+# tasks file for beats_role
+- name: add elastic repo
+  template:
+    src: elasticsearch.repo.jk2
+    dest: /etc/yum.repos.d/elasticsearch.repo
+- name: install beats
+  yum:
+    name: ['filebeat','packetbeat','auditbeat','metricbeat','heartbeat-elastic']
+    state: present

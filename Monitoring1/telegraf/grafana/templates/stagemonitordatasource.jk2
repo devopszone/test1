@@ -1,0 +1,18 @@
+{		
+"name": "stagemonitor",
+"type": "influxdb",
+"access": "proxy",
+"orgId": 1,
+"url": "http://{{ influxdb_IP }}:{{ influxdb_Port }}", 
+"user": "{{influxdb_username}}",
+"password": "{{ influxdb_password }}",
+"database": "stagemonitor",
+"basicAuth": true,
+"basicAuthUser": "root",
+"basicAuthPassword": "root",
+"withCredentials": true,
+"is_default": false,
+"version": 1,
+"editable": true		
+}
+

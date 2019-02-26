@@ -1,0 +1,3 @@
+---
+# tasks file for heartbeat
+- include: heartbeat_configure.yml
